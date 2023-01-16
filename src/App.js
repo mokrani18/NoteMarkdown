@@ -1,27 +1,34 @@
+import React,{useState} from 'react'
 import './App.css';
 
+const images = [
+  "https://images.pexels.com/photos/3836292/pexels-photo-3836292.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+  "https://images.pexels.com/photos/2792157/pexels-photo-2792157.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+  "https://images.pexels.com/photos/1166209/pexels-photo-1166209.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+  "https://images.pexels.com/photos/1661179/pexels-photo-1661179.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+  "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+]
 function App() {
+  const [carousel, setCarousel] = useState(0)
+ 
+  function changeLeft() {
+    setCarousel(carousel === 0 ? images.length - 1 : carousel - 1)
+  }
+  function changeRight() {
+    setCarousel(carousel === images.length -1 ? 0 : carousel + 1)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
+    <div className="viewer">
+      <div className='imgContainer'>
+        <button className='previous' onClick={changeLeft}>⬅Previous</button>
+        {
+          images.map((img, index) => 
+          carousel === index &&  <div key={img} className="slide">
+          <img src={img} alt="images" />
+        </div>)}
+        <button className='next' onClick={changeRight}>Next⮕</button>
+      </div>
+      
     </div>
   );
 }
